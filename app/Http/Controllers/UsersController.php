@@ -29,6 +29,8 @@ class UsersController extends Controller
         $user->password = Hash::make(Input::get('password'));
         $user->save();
 
+        // Save user on session
+        session(['user_id' => $user->id]);
         return view('dashboard.homepage.home', compact('user'));
     }
 }
