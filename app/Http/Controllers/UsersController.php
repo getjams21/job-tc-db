@@ -29,8 +29,6 @@ class UsersController extends Controller
         $user->password = Hash::make(Input::get('password'));
         $user->save();
 
-        // Save Default Roles and Permissions
-        $user_role = new User_Role;
-        // $user_role->
+        return view('dashboard.homepage.home', compact('user'));
     }
 }

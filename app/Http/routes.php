@@ -18,3 +18,6 @@ Route::get('/', function () {
 // Users
 Route::get('/users/new', 'UsersController@newUser');
 Route::post('/users/create', 'UsersController@create')->name('createUser');
+
+// Company
+Route::get('/company/new', 'CompanyController@newCompany');
