@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
     <div class="col-md-8 col-md-offset-2">
-        {{ Form::open(['route' => 'createUser']) }}
+        {{ Form::open(['url' => 'users']) }}
             <h2>Registration Form</h2>
             <div class="form-group">
                 <label for="name" class="col-sm-3 control-label">Full Name</label>

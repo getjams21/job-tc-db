@@ -15,10 +15,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Users
-Route::get('/users/new', 'UsersController@newUser');
-Route::post('/users/create', 'UsersController@create')->name('createUser');
+// Sessions
+Route::get('/login', 'AuthController@index');
+Route::post('/login', [
+    'uses' => 'AuthController@authenticate',
+    'as' => 'login'
+]);
+Route::get('/logout', function (){
+    Auth::logout();
+    return redirect()->route('login');
+});
 
-// Company
-Route::get('/company/new', 'CompanyController@newCompany');
-Route::post('/company/create', 'CompanyController@create')->name('createCompany');
+// Middleware to Dashboard
+Route::group(['middleware' => ['auth']], function () {
+    // Dashboard
+    Route::get('/dashboard', function (){
+        return view('dashboard.home');
+    });
+
+    // Users
+    Route::resource('/users', 'UserController');
+
+    // Company
+    Route::resource('/companies', 'CompanyController');
+});
+// Route::get('/company/new', 'CompanyController@newCompany');
+// Route::post('/company/create', 'CompanyController@create')->name('createCompany');
