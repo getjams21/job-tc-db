@@ -26,6 +26,10 @@ Route::get('/logout', function (){
     return redirect()->route('login');
 });
 
+// Registration
+Route::get('/register', 'AuthController@newUser');
+Route::post('/register', 'AuthController@register');
+
 // Middleware to Dashboard
 Route::group(['middleware' => ['auth']], function () {
     // Dashboard

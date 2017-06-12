@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
+use App\User;
 
 class AuthController extends Controller
 {
@@ -14,7 +18,25 @@ class AuthController extends Controller
     }
     public function authenticate(Request $request){
         if(Auth::attempt(['email' => $request['email'], 'password' => $request['password']])){
-            return redirect('dashboard');
+            $user = Auth::user();
+            return view('dashboard.homepage.home', compact('user'));
+        }else{
+            return redirect('login');
         }
     }
+
+    // Registration
+    public function newUser(){
+        return view('register');
+    }
+    public function register(){
+        // Save User Registration
+        $user = new User;
+        $user->name = Input::get('name');
+        $user->email = Input::get('email');
+        $user->password = Hash::make(Input::get('password'));
+        $user->save();
+
+        return view('login');
+    } 
 }
