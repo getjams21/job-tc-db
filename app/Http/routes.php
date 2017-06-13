@@ -42,6 +42,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Company
     Route::resource('/companies', 'CompanyController');
+
+    // Profile
+    Route::resource('/profile', 'ProfileController');
 });
 // Route::get('/company/new', 'CompanyController@newCompany');
 // Route::post('/company/create', 'CompanyController@create')->name('createCompany');
