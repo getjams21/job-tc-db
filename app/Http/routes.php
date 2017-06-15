@@ -12,7 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        return redirect()->action('HomeController@index');
+    }else{
+        return redirect('login');
+    }
 });
 
 // Sessions
@@ -36,6 +40,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', function (){
         return view('dashboard.home');
     });
+    Route::get('/', 'HomeController@index');
 
     // Users
     Route::resource('/users', 'UserController');

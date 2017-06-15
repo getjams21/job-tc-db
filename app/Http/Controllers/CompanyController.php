@@ -51,6 +51,7 @@ class CompanyController extends Controller
         $company->name = Input::get('name');
         $company->email = Input::get('email');
         $company->phone = Input::get('phone');
+        $company->user_id = Auth::user()->id;
         $company->save();
 
         // Create Job Info for this user

@@ -9,7 +9,7 @@ use Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
-use App\User;
+use App\Company;
 
 class AuthController extends Controller
 {
@@ -19,7 +19,9 @@ class AuthController extends Controller
     public function authenticate(Request $request){
         if(Auth::attempt(['email' => $request['email'], 'password' => $request['password']])){
             $user = Auth::user();
-            return view('dashboard.homepage.home', compact('user'));
+            $companies = Company::where('user_id', $user->id)
+            ->get();
+            return view('dashboard.homepage.home', compact('companies','user'));
         }else{
             return redirect('login');
         }
